@@ -15,6 +15,10 @@ def base():
 
 @app.route('/livechat/ticket/', methods=['POST'])
 def livechat_ticket():
+    """
+
+    :return:
+    """
     data = json.loads(request.json)
     for message in data['chat']['messages']:
         if message.get('user_type') == 'agent'\
@@ -35,6 +39,5 @@ def livechat_ticket():
 
 
 if __name__ == '__main__':
-    # app.run(host='0.0.0.0')
-    app.run()
+    app.run(host='0.0.0.0')
 
