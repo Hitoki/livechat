@@ -1,9 +1,6 @@
 #Set the base image to use to python 3.5
 FROM python:3.5
 
-# Set the file maintainer
-MAINTAINER Vitaliy Romanuik
-
 # Set env
 ENV livechat 1
 
@@ -12,7 +9,6 @@ RUN mkdir /livechat
 WORKDIR /livechat
 RUN cd /livechat
 ADD . /livechat/
-
 
 # Install Python dependencies
 ADD requirements.txt /livechat/
