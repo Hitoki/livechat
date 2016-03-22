@@ -45,6 +45,7 @@ def test_url():
     """ Test LiveChat and Google analytic endpoint
     :return:
     """
+    data = json.loads(request.json)
     params = urllib.parse.urlencode({
         'v': 1,
         'tid': 'UA-75377135-1',
@@ -52,7 +53,7 @@ def test_url():
         't': 'event',
         'ec': 'LiveChat Category',
         'ea': 'Test',
-        'el': 'Test'
+        'el': str(data)
     })
     connection = http.client.HTTPConnection(
         'www.google-analytics.com')
