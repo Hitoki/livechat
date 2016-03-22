@@ -15,7 +15,9 @@ def base():
 
 @app.route('/livechat/ticket/', methods=['POST'])
 def livechat_ticket():
-    """
+    """ Send new track to Google analytic from LiveChatInc webhooks.
+    (If chat in request date and #Sell in request message
+     with user_type == agent )
 
     :return:
     """
