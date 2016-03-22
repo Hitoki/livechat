@@ -19,7 +19,7 @@ def livechat_ticket():
     (If "chat" in request date and "#Sell" in request message
      with user_type == agent )
 
-    :return:
+    :return: ""
     """
     data = request.json
     for message in data['chat']['messages']:
@@ -39,25 +39,6 @@ def livechat_ticket():
             connection.request('POST', '/collect', params)
     return ""
 
-
-@app.route('/livechat/test/', methods=['POST'])
-def test_url():
-    """ Test LiveChat and Google analytic endpoint
-    :return:
-    """
-    params = urllib.parse.urlencode({
-        'v': 1,
-        'tid': 'UA-75377135-1',
-        'cid': request.cookies.get('_GA'),
-        't': 'event',
-        'ec': 'LiveChat Category',
-        'ea': 'Test',
-        'el': 'Test'
-    })
-    connection = http.client.HTTPConnection(
-        'www.google-analytics.com')
-    connection.request('POST', '/collect', params)
-    return ""
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
