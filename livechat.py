@@ -45,19 +45,24 @@ def test_url():
     """ Test LiveChat and Google analytic endpoint
     :return:
     """
-    data = json.loads(request.json)
-    params = urllib.parse.urlencode({
-        'v': 1,
-        'tid': 'UA-75377135-1',
-        'cid': request.cookies.get('_GA'),
-        't': 'event',
-        'ec': 'LiveChat Category',
-        'ea': 'Test',
-        'el': str(data)
-    })
-    connection = http.client.HTTPConnection(
-        'www.google-analytics.com')
-    connection.request('POST', '/collect', params)
+
+    # try:
+    #     data = json.loads(request.data)
+    # except Exception as e:
+    #     print(e)
+    if json.loads(request.json):
+        params = urllib.parse.urlencode({
+            'v': 1,
+            'tid': 'UA-75377135-1',
+            'cid': request.cookies.get('_GA'),
+            't': 'event',
+            'ec': 'LiveChat Category',
+            'ea': 'Test',
+            'el': 'Test'
+        })
+        connection = http.client.HTTPConnection(
+            'www.google-analytics.com')
+        connection.request('POST', '/collect', params)
     return ""
 
 if __name__ == '__main__':
