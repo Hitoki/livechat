@@ -68,7 +68,7 @@ def livechat_ticket():
     :return: ""
     """
     google_analytics_task.apply_async(
-        args=(request.json, request.cookies.get('_GA')), countdown=3)
+        args=(request.json(), request.cookies.get('_GA')), countdown=3)
     return ""
 
 # @app.route('/livechat/ticket/', methods=['GET'])
