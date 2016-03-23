@@ -13,5 +13,5 @@ EXPOSE 5000
 
 # Run commands
 CMD python livechat.py
-CMD celery -A livechat.celery worker --loglevel=info
+# CMD celery -A livechat.celery worker --loglevel=info
 
