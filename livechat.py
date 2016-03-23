@@ -80,7 +80,8 @@ def livechat_ticket():
     """
     ga = request.cookies.get('_GA')
     _data = {"chat": {"id": "O4RIX0OXRY", "tags": ["test1", "test2"]}}
-    google_analytics_task.apply_async(args=(_data, ga), countdown=3)
+    # google_analytics_task.apply_async(args=(_data, ga), countdown=3)
+    google_analytics_task.apply_async()
     return ""
 
 
