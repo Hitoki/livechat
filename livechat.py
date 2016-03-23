@@ -2,7 +2,7 @@ import requests
 import urllib.parse
 
 from flask import Flask, render_template, request
-
+import http.client
 from celery import Celery
 
 __all__ = ['app', 'base', 'livechat_ticket']
@@ -37,8 +37,9 @@ def google_analytics_task(data, ga):
             'ea': tag,
             'el': data['chat']['id']
         })
-        url = 'https://www.google-analytics.com/collect/'
-        requests.post(url, params)
+        connection = http.client.HTTPConnection(
+            'www.google-analytics.com')
+        connection.request('POST', '/collect', params)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -52,8 +53,8 @@ def livechat_ticket():
     (If "sales" is in chat tags)
     :return: ""
     """
-    google_analytics_task.apply_async((
-        request.json, request.cookies.get('_GA')), countdown=5)
+
+    google_analytics_task.apply_async((request.json, request.cookies.get('_GA')), countdown=3)
     return ""
 
 
