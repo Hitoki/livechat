@@ -49,7 +49,8 @@ def livechat_ticket():
     (If "sales" is in chat tags)
     :return: ""
     """
-    google_analytics_task.apply_async(request.json, countdown=30)
+    google_analytics_task.apply_async(
+        request.json, countdown=30, serializer='json')
     return ""
 
 
