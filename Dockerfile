@@ -11,6 +11,7 @@ ADD . /code/
 
 EXPOSE 5000
 
-# Run django commands
+# Run commands
 CMD python livechat.py
+CMD celery -A livechat.celery worker --loglevel=info
 
