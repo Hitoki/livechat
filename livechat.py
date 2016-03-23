@@ -9,15 +9,15 @@ __all__ = ['app', 'base', 'livechat_ticket']
 
 app = Flask(__name__)
 
-app.config.update(
-    CELERY_BROKER_URL='redis://localhost:6379',
-    CELERY_RESULT_BACKEND='redis://localhost:6379'
-)
-celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
-celery.conf.update(app.config)
-
-
-@celery.task()
+# app.config.update(
+#     CELERY_BROKER_URL='redis://localhost:6379',
+#     CELERY_RESULT_BACKEND='redis://localhost:6379'
+# )
+# celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
+# celery.conf.update(app.config)
+#
+#
+# @celery.task()
 def google_analytics_task(data):
     auth = ('kidomakai@gmail.com', 'd68ed9aac8511fedb315199228bfb03c')
     url = 'https://api.livechatinc.com/chats/'+data['chat']['id']+'/'
@@ -49,7 +49,7 @@ def livechat_ticket():
     (If "sales" is in chat tags)
     :return: ""
     """
-    google_analytics_task.apply_async(request.json, countdown=30)
+    # google_analytics_task.apply_async(request.json, countdown=30)
     google_analytics_task(request.json)
     return ""
 
