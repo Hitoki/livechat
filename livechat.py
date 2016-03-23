@@ -36,7 +36,6 @@ def google_analytics_task(data):
         })
         url = 'https://www.google-analytics.com/collect'
         requests.post(url, params)
-    return ""
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -51,7 +50,7 @@ def livechat_ticket():
     :return: ""
     """
     # google_analytics_task.apply_async(request.json, countdown=30)
-    google_analytics_task
+    google_analytics_task(request.json)
     return ""
 
 
