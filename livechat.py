@@ -10,8 +10,8 @@ __all__ = ['app', 'base', 'livechat_ticket']
 app = Flask(__name__)
 
 app.config.update(
-    CELERY_BROKER_URL='redis://localhost:6379',
-    CELERY_RESULT_BACKEND='redis://localhost:6379',
+    CELERY_BROKER_URL='redis://0.0.0.0:6379',
+    CELERY_RESULT_BACKEND='redis://0.0.0.0:6379',
     CELERY_ACCEPT_CONTENT=['json'],
     CELERY_TASK_SERIALIZER='json',
     CELERY_RESULT_SERIALIZER='json'
@@ -46,14 +46,13 @@ def base():
     return render_template('base.html')
 
 
-@app.route('/livechat/ticket/', methods=['POST'])
+@app.route('/livechat/ticket/', methods=['GET', 'POST'])
 def livechat_ticket():
     """ Send new track to Google analytic from LiveChatInc webhooks.
     (If "sales" is in chat tags)
     :return: ""
     """
-    google_analytics_task.apply_async(
-        request.json, countdown=30, serializer='json')
+    google_analytics_task.apply_async((request.json), countdown=30)
     return ""
 
 
