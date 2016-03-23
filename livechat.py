@@ -21,7 +21,7 @@ celery.conf.update(app.config)
 
 
 @celery.task()
-def google_analytics_task(data):
+def google_analytics_task(data, ga):
     auth = ('kidomakai@gmail.com', 'd68ed9aac8511fedb315199228bfb03c')
     url = 'https://api.livechatinc.com/chats/'+data['chat']['id']+'/'
     headers = {"X-API-Version": "2"}
@@ -31,13 +31,13 @@ def google_analytics_task(data):
         params = urllib.parse.urlencode({
             'v': 1,
             'tid': 'UA-75377135-1',
-            'cid': request.cookies.get('_GA'),
+            'cid': ga,
             't': 'event',
             'ec': 'LiveChat',
             'ea': tag,
             'el': data['chat']['id']
         })
-        url = 'https://www.google-analytics.com/collect'
+        url = 'https://www.google-analytics.com/collect/'
         requests.post(url, params)
 
 
@@ -46,13 +46,14 @@ def base():
     return render_template('base.html')
 
 
-@app.route('/livechat/ticket/', methods=['GET', 'POST'])
+@app.route('/livechat/ticket/', methods=['GET'])
 def livechat_ticket():
     """ Send new track to Google analytic from LiveChatInc webhooks.
     (If "sales" is in chat tags)
     :return: ""
     """
-    google_analytics_task.apply_async((request.json), countdown=30)
+    google_analytics_task.apply_async(
+        (request.json, request.cookies.get('_GA')), countdown=30)
     return ""
 
 
