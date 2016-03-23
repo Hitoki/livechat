@@ -36,11 +36,10 @@ register_logger_signal(client, loglevel=logging.INFO)
 
 @celery.task()
 def google_analytics_task(data, ga):
-    pass
-    # auth = ('kidomakai@gmail.com', 'd68ed9aac8511fedb315199228bfb03c')
-    # url = 'https://api.livechatinc.com/chats/'+data['chat']['id']+'/'
-    # headers = {"X-API-Version": "2"}
-    # request_data = requests.get(url, headers=headers, auth=auth)
+    auth = ('kidomakai@gmail.com', 'd68ed9aac8511fedb315199228bfb03c')
+    url = 'https://api.livechatinc.com/chats/'+data['chat']['id']+'/'
+    headers = {"X-API-Version": "2"}
+    request_data = requests.get(url, headers=headers, auth=auth)
     #
     # for tag in request_data.json()['tags']:
     #     params = urllib.parse.urlencode({
