@@ -22,6 +22,19 @@ app.config.update(
     CELERY_TASK_SERIALIZER='json',
     CELERY_RESULT_SERIALIZER='json'
 )
+
+
+class Celery(Celery):
+
+    def on_configure(self):
+        client = Client('https://<key>:<secret>@app.getsentry.com/<project>')
+
+        # register a custom filter to filter out duplicate logs
+        register_logger_signal(client)
+
+        # hook into the Celery error handler
+        register_signal(client)
+
 celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
 celery.conf.update(app.config)
 
@@ -29,13 +42,14 @@ celery.conf.update(app.config)
 sentry = Sentry(app, dsn='https://368294fb0e6e4739861c08a2bc277212:b25295a8dcb74cdf98ed95dea61ef2e0@app.getsentry.com/71566')
 client = Client('https://368294fb0e6e4739861c08a2bc277212:b25295a8dcb74cdf98ed95dea61ef2e0@app.getsentry.com/71566')
 
-register_logger_signal(client)
-register_signal(client)
-register_logger_signal(client, loglevel=logging.INFO)
+# register_logger_signal(client)
+# register_signal(client)
+# register_logger_signal(client, loglevel=logging.INFO)
 
 
 @celery.task()
-def google_analytics_task(data, ga):
+# def google_analytics_task(data, ga):
+def google_analytics_task():
     auth = ('kidomakai@gmail.com', 'd68ed9aac8511fedb315199228bfb03c')
     print(432)
     # url = 'https://api.livechatinc.com/chats/'+data['chat']['id']+'/'
@@ -72,7 +86,7 @@ def base():
 #         args=(request.get_json(), request.cookies.get('_GA')), countdown=3)
 #     return ""
 
-@app.route('/livechat/ticket/', methods=['POST'])
+@app.route('/livechat/ticket/', methods=['GET', 'POST'])
 def livechat_ticket():
     """ Send new track to Google analytic from LiveChatInc webhooks.
     (If "sales" is in chat tags)
