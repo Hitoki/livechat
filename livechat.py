@@ -1,3 +1,4 @@
+import requests
 import urllib.parse
 import http.client
 
@@ -19,7 +20,12 @@ celery.conf.update(app.config)
 
 @celery.task()
 def google_analytics_task(data):
-    for tag in data['chat']['tags']:
+    auth = ('kidomakai@gmail.com', 'd68ed9aac8511fedb315199228bfb03c')
+    url = 'https://api.livechatinc.com/chats/'+data['chat']['id']+'/'
+    headers = {"X-API-Version": "2"}
+    request_data = requests.get(url, headers=headers, auth=auth)
+
+    for tag in request_data['tags']:
         params = urllib.parse.urlencode({
             'v': 1,
             'tid': 'UA-75377135-1',
@@ -27,11 +33,10 @@ def google_analytics_task(data):
             't': 'event',
             'ec': 'LiveChat',
             'ea': tag,
-            'el': data['chat'].get('id')
+            'el': data['chat']['id']
         })
-        connection = http.client.HTTPConnection(
-            'www.google-analytics.com')
-        connection.request('POST', '/collect', params)
+        url = 'https://www.google-analytics.com/collect'
+        requests.post(url, params)
     return ""
 
 
