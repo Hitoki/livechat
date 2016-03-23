@@ -41,19 +41,19 @@ def google_analytics_task(data, ga):
     headers = {"X-API-Version": "2"}
     request_data = requests.get(url, headers=headers, auth=auth)
 
-    for tag in request_data.json()['tags']:
-        params = urllib.parse.urlencode({
-            'v': 1,
-            'tid': 'UA-75377135-1',
-            'cid': ga,
-            't': 'event',
-            'ec': 'LiveChat',
-            'ea': tag,
-            'el': data['chat']['id']
-        })
-        connection = http.client.HTTPConnection(
-            'www.google-analytics.com')
-        connection.request('POST', '/collect', params)
+    # for tag in request_data.json()['tags']:
+    #     params = urllib.parse.urlencode({
+    #         'v': 1,
+    #         'tid': 'UA-75377135-1',
+    #         'cid': ga,
+    #         't': 'event',
+    #         'ec': 'LiveChat',
+    #         'ea': tag,
+    #         'el': data['chat']['id']
+    #     })
+    #     connection = http.client.HTTPConnection(
+    #         'www.google-analytics.com')
+    #     connection.request('POST', '/collect', params)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -68,7 +68,7 @@ def livechat_ticket():
     :return: ""
     """
     google_analytics_task.apply_async(
-        args=(request.json(), request.cookies.get('_GA')), countdown=3)
+        args=(request.get_json(), request.cookies.get('_GA')), countdown=3)
     return ""
 
 # @app.route('/livechat/ticket/', methods=['GET'])
