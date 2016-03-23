@@ -1,4 +1,5 @@
 import json
+import threading
 
 import urllib.parse
 import http.client
@@ -20,15 +21,15 @@ def livechat_ticket():
     :return: ""
     """
     data = request.json
-    if 'sales' in data['chat']['tags']:
+    for tag in data['chat']['tags']:
         params = urllib.parse.urlencode({
             'v': 1,
             'tid': 'UA-75377135-1',
             'cid': request.cookies.get('_GA'),
             't': 'event',
-            'ec': 'LiveChat Category',
-            'ea': 'Success Sell',
-            'el': 'Sell'
+            'ec': 'LiveChat',
+            'ea': tag,
+            'el': data['chat'].get('id')
         })
         connection = http.client.HTTPConnection(
             'www.google-analytics.com')
