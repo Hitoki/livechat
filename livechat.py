@@ -24,7 +24,7 @@ def google_analytics_task(data):
     headers = {"X-API-Version": "2"}
     request_data = requests.get(url, headers=headers, auth=auth)
 
-    for tag in request_data['tags']:
+    for tag in request_data.json(['tags']):
         params = urllib.parse.urlencode({
             'v': 1,
             'tid': 'UA-75377135-1',
