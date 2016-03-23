@@ -48,27 +48,25 @@ client = Client('https://368294fb0e6e4739861c08a2bc277212:b25295a8dcb74cdf98ed95
 
 
 @celery.task()
-# def google_analytics_task(data, ga):
-def google_analytics_task():
+def google_analytics_task(data, ga):
     auth = ('kidomakai@gmail.com', 'd68ed9aac8511fedb315199228bfb03c')
-    print(432)
-    # url = 'https://api.livechatinc.com/chats/'+data['chat']['id']+'/'
-    # headers = {"X-API-Version": "2"}
-    # request_data = requests.get(url, headers=headers, auth=auth)
-    #
-    # for tag in request_data.json()['tags']:
-    #     params = urllib.parse.urlencode({
-    #         'v': 1,
-    #         'tid': 'UA-75377135-1',
-    #         'cid': ga,
-    #         't': 'event',
-    #         'ec': 'LiveChat',
-    #         'ea': tag,
-    #         'el': data['chat']['id']
-    #     })
-    #     connection = http.client.HTTPConnection(
-    #         'www.google-analytics.com')
-    #     connection.request('POST', '/collect', params)
+    url = 'https://api.livechatinc.com/chats/'+data['chat']['id']+'/'
+    headers = {"X-API-Version": "2"}
+    request_data = requests.get(url, headers=headers, auth=auth)
+
+    for tag in request_data.json()['tags']:
+        params = urllib.parse.urlencode({
+            'v': 1,
+            'tid': 'UA-75377135-1',
+            'cid': ga,
+            't': 'event',
+            'ec': 'LiveChat',
+            'ea': tag,
+            'el': data['chat']['id']
+        })
+        connection = http.client.HTTPConnection(
+            'www.google-analytics.com')
+        connection.request('POST', '/collect', params)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -94,8 +92,7 @@ def livechat_ticket():
     """
     ga = request.cookies.get('_GA')
     _data = {"chat": {"id": "O4RIX0OXRY", "tags": ["test1", "test2"]}}
-    # google_analytics_task.apply_async(args=(_data, ga), countdown=3)
-    google_analytics_task.apply_async()
+    google_analytics_task(request.get_json(), request.cookies.get('_GA'))
     return ""
 
 
