@@ -1,26 +1,24 @@
-import json
-import threading
-
 import urllib.parse
 import http.client
 
 from flask import Flask, render_template, request
 
+from celery import Celery
+
+__all__ = ['app', 'base', 'livechat_ticket']
+
 app = Flask(__name__)
 
+app.config.update(
+    CELERY_BROKER_URL='redis://localhost:6379',
+    CELERY_RESULT_BACKEND='redis://localhost:6379'
+)
+celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
+celery.conf.update(app.config)
 
-@app.route('/', methods=['GET', 'POST'])
-def base():
-    return render_template('base.html')
 
-
-@app.route('/livechat/ticket/', methods=['POST'])
-def livechat_ticket():
-    """ Send new track to Google analytic from LiveChatInc webhooks.
-    (If "sales" is in chat tags)
-    :return: ""
-    """
-    data = request.json
+@celery.task()
+def google_analytics_task(data):
     for tag in data['chat']['tags']:
         params = urllib.parse.urlencode({
             'v': 1,
@@ -34,6 +32,21 @@ def livechat_ticket():
         connection = http.client.HTTPConnection(
             'www.google-analytics.com')
         connection.request('POST', '/collect', params)
+    return ""
+
+
+@app.route('/', methods=['GET', 'POST'])
+def base():
+    return render_template('base.html')
+
+
+@app.route('/livechat/ticket/', methods=['POST'])
+def livechat_ticket():
+    """ Send new track to Google analytic from LiveChatInc webhooks.
+    (If "sales" is in chat tags)
+    :return: ""
+    """
+    google_analytics_task.apply_async(request.json, countdown=30)
     return ""
 
 
