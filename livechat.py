@@ -16,27 +16,23 @@ def base():
 @app.route('/livechat/ticket/', methods=['POST'])
 def livechat_ticket():
     """ Send new track to Google analytic from LiveChatInc webhooks.
-    (If "chat" in request date and "#Sell" in request message
-     with user_type == agent )
-
+    (If "sales" is in chat tags)
     :return: ""
     """
     data = request.json
-    for message in data['chat']['messages']:
-        if message.get('user_type') == 'agent'\
-                and '#Sell' in message.get('text'):
-            params = urllib.parse.urlencode({
-                'v': 1,
-                'tid': 'UA-75377135-1',
-                'cid': request.cookies.get('_GA'),
-                't': 'event',
-                'ec': 'LiveChat Category',
-                'ea': 'Success Sell',
-                'el': 'Sell'
-            })
-            connection = http.client.HTTPConnection(
-                'www.google-analytics.com')
-            connection.request('POST', '/collect', params)
+    if 'sales' in data['chat']['tags']:
+        params = urllib.parse.urlencode({
+            'v': 1,
+            'tid': 'UA-75377135-1',
+            'cid': request.cookies.get('_GA'),
+            't': 'event',
+            'ec': 'LiveChat Category',
+            'ea': 'Success Sell',
+            'el': 'Sell'
+        })
+        connection = http.client.HTTPConnection(
+            'www.google-analytics.com')
+        connection.request('POST', '/collect', params)
     return ""
 
 
