@@ -37,9 +37,10 @@ register_logger_signal(client, loglevel=logging.INFO)
 @celery.task()
 def google_analytics_task(data, ga):
     auth = ('kidomakai@gmail.com', 'd68ed9aac8511fedb315199228bfb03c')
-    url = 'https://api.livechatinc.com/chats/'+data['chat']['id']+'/'
-    headers = {"X-API-Version": "2"}
-    request_data = requests.get(url, headers=headers, auth=auth)
+    print(432)
+    # url = 'https://api.livechatinc.com/chats/'+data['chat']['id']+'/'
+    # headers = {"X-API-Version": "2"}
+    # request_data = requests.get(url, headers=headers, auth=auth)
     #
     # for tag in request_data.json()['tags']:
     #     params = urllib.parse.urlencode({
@@ -71,13 +72,15 @@ def base():
 #         args=(request.get_json(), request.cookies.get('_GA')), countdown=3)
 #     return ""
 
-@app.route('/livechat/ticket/', methods=['GET', 'POST'])
+@app.route('/livechat/ticket/', methods=['POST'])
 def livechat_ticket():
     """ Send new track to Google analytic from LiveChatInc webhooks.
     (If "sales" is in chat tags)
     :return: ""
     """
-    google_analytics_task.apply_async(args=({"chat": {"id": "O4RIX0OXRY", "tags": ["test1", "test2"]}}, request.cookies.get('_GA')), countdown=3)
+    ga = request.cookies.get('_GA')
+    _data = {"chat": {"id": "O4RIX0OXRY", "tags": ["test1", "test2"]}}
+    google_analytics_task.apply_async(args=(_data, ga), countdown=3)
     return ""
 
 
