@@ -46,14 +46,14 @@ def base():
     return render_template('base.html')
 
 
-@app.route('/livechat/ticket/', methods=['GET'])
+@app.route('/livechat/ticket/', methods=['POST'])
 def livechat_ticket():
     """ Send new track to Google analytic from LiveChatInc webhooks.
     (If "sales" is in chat tags)
     :return: ""
     """
-    google_analytics_task.apply_async(
-        (request.json, request.cookies.get('_GA')), countdown=30)
+    google_analytics_task.apply_async((
+        request.json, request.cookies.get('_GA')), countdown=5)
     return ""
 
 
