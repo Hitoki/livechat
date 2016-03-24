@@ -9,8 +9,6 @@ ADD requirements.txt /code/
 RUN pip install -r requirements.txt
 ADD . /code/
 
-RUN chmod +x start.sh
-
 EXPOSE 5000
 
 # Install the Redis server
@@ -31,6 +29,7 @@ RUN apt-get install -y redis-server
 
 # EXPOSE 6379
 
+RUN chmod +x start.sh
 ENTRYPOINT ["/code/start.sh"]
 
 # CMD redis-server --daemonize yes && celery -A livechat.celery worker --loglevel=info && python livechat.py
