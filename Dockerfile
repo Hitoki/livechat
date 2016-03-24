@@ -9,14 +9,11 @@ ADD requirements.txt /code/
 RUN pip install -r requirements.txt
 ADD . /code/
 
+RUN chmod +x start.sh
+
 EXPOSE 5000
 
 # Install the Redis server
-#RUN wget http://download.redis.io/redis-stable.tar.gz
-#RUN tar xvzf redis-stable.tar.gz
-#WORKDIR redis-stable
-#RUN make
-#WORKDIR /code
 
 RUN apt-get update -y
 RUN apt-get install -y redis-server
@@ -32,7 +29,9 @@ RUN apt-get install -y redis-server
 # redis /usr/bin/redis-server
 # redis-server /etc/redis/redis.conf
 
-EXPOSE 6379
+# EXPOSE 6379
 
-CMD service redis-server restart && celery -A livechat.celery worker --loglevel=info && python livechat.py
+ENTRYPOINT ["/code/start.sh"]
+
+# CMD service redis-server restart && celery -A livechat.celery worker --loglevel=info && python livechat.py
 

@@ -69,8 +69,10 @@ def livechat_ticket():
     """
     google_analytics_task.apply_async(
         args=(request.get_json(), request.cookies.get('_GA')), countdown=30)
+    # livechat.google_analytics_task.apply_async(args=({'chat':{'id':'12312','tags':['test']}}, '123.123'), countdown=30)
     return ""
 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
+
