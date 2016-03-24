@@ -4,8 +4,8 @@ cd //code
 
 redis-server --daemonize yes
 
-#celery -A livechat.celery worker --loglevel=info
-
 python livechat.py
+
+celery -A livechat.celery worker --loglevel=info
 
 /bin/bash
