@@ -30,7 +30,9 @@ RUN apt-get install -y redis-server
 # EXPOSE 6379
 
 RUN chmod +x start.sh
+
 ENTRYPOINT ["/code/start.sh"]
 
-# CMD redis-server --daemonize yes && celery -A livechat.celery worker --loglevel=info && python livechat.py
+
+# CMD redis-server --daemonize yes && celery -A -d livechat.celery worker --loglevel=info && python livechat.py
 
