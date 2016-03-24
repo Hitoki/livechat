@@ -30,6 +30,7 @@ RUN apt-get install -y redis-server
 # redis-server --daemonize yes
 
 # redis /usr/bin/redis-server
+# redis-server /etc/redis/redis.conf
 
 EXPOSE 6379
 
