@@ -33,5 +33,5 @@ RUN apt-get install -y redis-server
 
 ENTRYPOINT ["/code/start.sh"]
 
-# CMD service redis-server restart && celery -A livechat.celery worker --loglevel=info && python livechat.py
+# CMD redis-server --daemonize yes && celery -A livechat.celery worker --loglevel=info && python livechat.py
 
