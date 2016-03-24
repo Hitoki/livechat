@@ -34,5 +34,5 @@ RUN apt-get install -y redis-server
 
 EXPOSE 6379
 
-CMD service redis-server start && celery -A livechat.celery worker --loglevel=info && python livechat.py
+CMD service redis-server restart && celery -A livechat.celery worker --loglevel=info && python livechat.py
 
