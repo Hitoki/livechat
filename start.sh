@@ -3,10 +3,11 @@
 cd //code
 
 redis-server --daemonize yes
+#service redis-server restart
 
-redis-cli PING
+#celery -A livechat.celery worker --loglevel=info
 
-celery -A livechat.celery worker --loglevel=info
+huey_consumer.py livechat.huey -k process -w 64
 
 python livechat.py
 

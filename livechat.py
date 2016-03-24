@@ -3,10 +3,11 @@ import urllib.parse
 import http.client
 
 from flask import Flask, render_template, request
+from huey import RedisHuey, crontab
 
 from celery import Celery
 
-__all__ = ['app', 'celery', 'google_analytics_task',
+__all__ = ['app', 'google_analytics_task',
            'base', 'livechat_ticket']
 
 app = Flask(__name__)
@@ -19,11 +20,11 @@ app.config.update(
     CELERY_RESULT_SERIALIZER='json'
 )
 
-celery = Celery(app.name)
-celery.conf.update(app.config)
+# celery = Celery(app.name)
+# celery.conf.update(app.config)
+huey = RedisHuey(app.name)
 
-
-@celery.task()
+# @celery.task()
 def google_analytics_task(data, ga):
     """ Celery task, send Google statistics
 
@@ -67,10 +68,36 @@ def livechat_ticket():
     """ Send new track to Google analytic from LiveChatInc webhooks endpoint.
     :return: ""
     """
-    google_analytics_task.apply_async(
-        args=(request.get_json(), request.cookies.get('_GA')), countdown=30)
+    # google_analytics_task.apply_async(
+    #     args=(request.get_json(), request.cookies.get('_GA')), countdown=30)
     # livechat.google_analytics_task.apply_async(args=({'chat':{'id':'12312','tags':['test']}}, '123.123'), countdown=30)
     return ""
+
+
+@huey.task()
+def add_numbers(data, ga):
+    auth = ('kidomakai@gmail.com', 'd68ed9aac8511fedb315199228bfb03c')
+    url = 'https://api.livechatinc.com/chats/'+data['chat']['id']+'/'
+    headers = {"X-API-Version": "2"}
+    request_data = requests.get(url, headers=headers, auth=auth)
+
+    for tag in request_data.json()['tags']:
+        params = urllib.parse.urlencode({
+            'v': 1,
+            'tid': 'UA-75377135-1',
+            'cid': ga,
+            't': 'event',
+            'ec': 'LiveChat',
+            'ea': tag,
+            'el': data['chat']['id']
+        })
+        connection = http.client.HTTPConnection(
+            'www.google-analytics.com')
+        connection.request('POST', '/collect', params)
+    return ""
+
+
+add_numbers.schedule(args=({'chat':{'id':'O4RIX0OXRY'}}, '123.123'), delay=5)
 
 
 if __name__ == '__main__':
