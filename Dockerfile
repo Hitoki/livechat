@@ -14,9 +14,10 @@ EXPOSE 5000
 # Install the Redis server
 RUN wget http://download.redis.io/redis-stable.tar.gz
 RUN tar xvzf redis-stable.tar.gz
-RUN cd redis-stable
+WORKDIR redis-stable
 RUN make
+WORKDIR /code
 
 # Run commands
-CMD python livechat.py && celery -A livechat.celery worker --loglevel=info
+CMD celery -A livechat.celery worker --loglevel=info && python livechat.py
 
