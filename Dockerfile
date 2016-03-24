@@ -12,8 +12,8 @@ ADD . /code/
 EXPOSE 5000
 
 # Install the Redis server
-RUN apt-get update -y
-RUN apt-get install -y redis-server
+# RUN apt-get update -y
+# RUN apt-get install -y redis-server
 
 # Run commands
 CMD python livechat.py && celery -A livechat.celery worker --loglevel=info
