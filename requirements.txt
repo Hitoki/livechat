@@ -1,6 +1,3 @@
 git+https://github.com/mitsuhiko/flask.git
 requests
-
 celery[redis]
-
-raven[flask]

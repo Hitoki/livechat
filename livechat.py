@@ -1,17 +1,13 @@
-import logging
 import requests
 import urllib.parse
 import http.client
 
 from flask import Flask, render_template, request
 
-from raven.contrib.flask import Sentry
-from raven import Client
-from raven.contrib.celery import register_signal, register_logger_signal
-
 from celery import Celery
 
-__all__ = ['app', 'base', 'livechat_ticket']
+__all__ = ['app', 'celery', 'google_analytics_task',
+           'base', 'livechat_ticket']
 
 app = Flask(__name__)
 
@@ -23,28 +19,20 @@ app.config.update(
     CELERY_RESULT_SERIALIZER='json'
 )
 
-
-class Celery(Celery):
-
-    def on_configure(self):
-        client = Client('https://<key>:<secret>@app.getsentry.com/<project>')
-
-        # register a custom filter to filter out duplicate logs
-        register_logger_signal(client)
-
-        # hook into the Celery error handler
-        register_signal(client)
-
 celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
 celery.conf.update(app.config)
 
 
-sentry = Sentry(app, dsn='https://368294fb0e6e4739861c08a2bc277212:b25295a8dcb74cdf98ed95dea61ef2e0@app.getsentry.com/71566')
-client = Client('https://368294fb0e6e4739861c08a2bc277212:b25295a8dcb74cdf98ed95dea61ef2e0@app.getsentry.com/71566')
-
-
 @celery.task()
 def google_analytics_task(data, ga):
+    """ Celery task, send Google statistics
+
+    :param data: JSON request data from LiveChat webhook
+    :type data: dict
+    :param ga: Request cookie User ID
+    :type ga: str
+    :return: ""
+    """
     auth = ('kidomakai@gmail.com', 'd68ed9aac8511fedb315199228bfb03c')
     url = 'https://api.livechatinc.com/chats/'+data['chat']['id']+'/'
     headers = {"X-API-Version": "2"}
@@ -63,23 +51,20 @@ def google_analytics_task(data, ga):
         connection = http.client.HTTPConnection(
             'www.google-analytics.com')
         connection.request('POST', '/collect', params)
+    return ""
 
 
 @app.route('/', methods=['GET', 'POST'])
 def base():
+    """ Base endpoint, for display LiveChat
+    :return: "template: base.html"
+    """
     return render_template('base.html')
-
-
-
-@celery.task
-def add(x, y):
-    return x + y
 
 
 @app.route('/livechat/ticket/', methods=['GET', 'POST'])
 def livechat_ticket():
-    """ Send new track to Google analytic from LiveChatInc webhooks.
-    (If "sales" is in chat tags)
+    """ Send new track to Google analytic from LiveChatInc webhooks endpoint.
     :return: ""
     """
     google_analytics_task.apply_async(

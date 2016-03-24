@@ -22,5 +22,5 @@ RUN apt-get update -y
 RUN apt-get install -y redis-server
 
 # Run commands
-CMD service redis-server start && celery -A livechat.celery worker --loglevel=info && python livechat.py
+CMD redis-server --daemonize yes && celery -A livechat.celery worker --loglevel=info && python livechat.py
 
