@@ -42,10 +42,6 @@ celery.conf.update(app.config)
 sentry = Sentry(app, dsn='https://368294fb0e6e4739861c08a2bc277212:b25295a8dcb74cdf98ed95dea61ef2e0@app.getsentry.com/71566')
 client = Client('https://368294fb0e6e4739861c08a2bc277212:b25295a8dcb74cdf98ed95dea61ef2e0@app.getsentry.com/71566')
 
-# register_logger_signal(client)
-# register_signal(client)
-# register_logger_signal(client, loglevel=logging.INFO)
-
 
 @celery.task()
 def google_analytics_task(data, ga):
@@ -74,16 +70,6 @@ def base():
     return render_template('base.html')
 
 
-# @app.route('/livechat/ticket/', methods=['POST'])
-# def livechat_ticket():
-#     """ Send new track to Google analytic from LiveChatInc webhooks.
-#     (If "sales" is in chat tags)
-#     :return: ""
-#     """
-#     google_analytics_task.apply_async(
-#         args=(request.get_json(), request.cookies.get('_GA')), countdown=3)
-#     return ""
-
 
 @celery.task
 def add(x, y):
@@ -96,11 +82,8 @@ def livechat_ticket():
     (If "sales" is in chat tags)
     :return: ""
     """
-    ga = request.cookies.get('_GA')
-    _data = {"chat": {"id": "O4RIX0OXRY", "tags": ["test1", "test2"]}}
-    # google_analytics_task(args=(_data, request.cookies.get('_GA')))
-    # google_analytics_task.apply_async(args=(request.get_json(), request.cookies.get('_GA')), countdown=3)
-    add.delay(456, 4)
+    google_analytics_task.apply_async(
+        args=(request.get_json(), request.cookies.get('_GA')), countdown=30)
     return ""
 
 
