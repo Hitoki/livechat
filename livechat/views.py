@@ -1,4 +1,4 @@
-from flask import render_template, request, session, flash, url_for, redirect
+from flask import render_template, request, flash, url_for, redirect
 from flask.ext.login import login_user, logout_user, login_required
 
 from livechat import app
