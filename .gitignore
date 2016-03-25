@@ -35,6 +35,7 @@ var/
 
 # BD
 *.sqlite3
+*.db
 
 ## Directory-based project format:
 .idea/
