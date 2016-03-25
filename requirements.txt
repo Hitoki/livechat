@@ -1,6 +1,9 @@
 git+https://github.com/mitsuhiko/flask.git
-requests
+flask-login
+
 Flask-SQLAlchemy
 SQLAlchemy
+
+requests
 
 # celery[redis]
