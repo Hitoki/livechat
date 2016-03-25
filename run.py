@@ -1,7 +1,7 @@
 from livechat import app, db
 from livechat.models import User
 
-app.run(host='0.0.0.0', debug=True)
+app.run(host='0.0.0.0')
 
 db.create_all()
 
