@@ -64,9 +64,8 @@ def livechat_ticket(user_hash):
     :return: GET "render_template('chat_page.html', **ctx)"
     """
     user = User.query.filter_by(hash=user_hash).first_or_404()
-
     google_analytics_task({'chat': {'id': 'O43LCTULLR'}}, '123.123', user)
-    if request.method == 'POST':
+    if request.get_json():
         # For develop task
         google_analytics_task(
             request.get_json(), request.cookies.get('_GA'), user)
