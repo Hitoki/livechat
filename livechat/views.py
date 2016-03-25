@@ -60,9 +60,12 @@ def livechat_ticket(user_hash):
     """
 
     Send new track to Google analytic from LiveChatInc webhooks endpoint.
-    :return: ""
+    :return: POST ""
+    :return: GET "render_template('chat_page.html', **ctx)"
     """
     user = User.query.filter_by(hash=user_hash).first_or_404()
+
+    google_analytics_task({'chat': {'id': 'O43LCTULLR'}}, '123.123', user)
     if request.method == 'POST':
         # For develop task
         google_analytics_task(
@@ -72,7 +75,7 @@ def livechat_ticket(user_hash):
         # google_analytics_task.apply_async(
         #     args=(request.get_json(), request.cookies.get('_GA')),
         #     countdown=600)
-
+        return ""
     ctx = {
         'google_track_id': user.google_track_id
     }
