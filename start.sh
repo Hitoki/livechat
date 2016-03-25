@@ -6,6 +6,6 @@ cd //code
 #
 #celery -A livechat.celery worker --loglevel=info
 
-python livechat.py
+python run.py
 
 /bin/bash

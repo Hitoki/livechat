@@ -1,0 +1,178 @@
+/* --- Global classes -------------------------------------------------------*/
+html {
+    font-family: Lato,Helvetica,Arial,sans-serif;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+a {
+    color: #4285f4;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #7759ae;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a[target="_blank"]:after {
+    content: '';
+    background: no-repeat url(https://ssl.gstatic.com/support/content/images/sprites/core-mobile-52bf8ba6d40a366fb44d1a5ebcd44e8c.png) 0 0;
+    display: inline-block;
+    height: 10px;
+    margin: 0 3px 0 5px;
+    width: 10px;
+}
+
+ul {
+    list-style: decimal;
+}
+
+ol {
+    list-style: square;
+}
+
+.content {
+    max-width: 1380px;
+    margin: 0 auto;
+}
+
+input {
+    border: 1px solid #000000;
+    line-height: 28px;
+    font-size: 16px;
+    padding: 0 10px;
+    min-width: 180px;
+}
+
+input.error-input {
+    border: 1px solid #E88705;
+}
+
+input[type="submit"] {
+    background: #3a343c;
+    color: #FFFFFF;
+}
+
+form .form-line div {
+    width: 50%;
+    height: 94px;
+}
+
+form .form-line div .error {
+    color: #E88705;
+    display: inline-block;
+    font-size: 13px;
+}
+
+form .form-line div .error:before {
+    content: '';
+    background: no-repeat url(https://ssl.gstatic.com/support/content/images/sprites/core-mobile-52bf8ba6d40a366fb44d1a5ebcd44e8c.png) 0px -58px;
+    display: inline-block;
+    height: 24px;
+    margin: 0 9px 0 5px;
+    width: 24px;
+}
+
+form .form-line div a {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+form .form-line div:not(.full) a {
+    margin-top: 41px;
+}
+
+form .form-line div.full {
+    width: 100%;
+}
+
+form .form-line div label {
+    margin: 10px 2px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+form .form-line div:not(.full):first-of-type input {
+    width: calc(100% - 32px);
+}
+
+form .form-line div input {
+    width: calc(100% - 22px);
+}
+
+.flash {
+    background: #1790cf;
+    padding: 10px;
+    color: #FFFFFF;
+    margin-bottom: 5px;
+}
+
+/* --- Header -------------------------------------------------------------- */
+
+header {
+    background: #3a343c;
+    height: 42px;
+    padding: 10px;
+    width: calc(100% - 20px);
+}
+
+header .metanav a {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 22px;
+    color: #FFFFFF;
+    padding: 10px 20px;
+}
+
+header .metanav span {
+    color: #FFFFFF;
+}
+
+/* --- Body ---------------------------------------------------------------- */
+
+/* --- Auth-Container ------------------------------------------------------ */
+
+.auth-container {
+    width: 980px;
+    padding: 10px;
+    margin: 40px auto 0;
+    background: #e7e8e1;
+}
+
+/* --- Help-Container ------------------------------------------------------ */
+
+.help-container {
+    width: 980px;
+    padding: 10px;
+    margin: 40px auto 0;
+    border: 1px solid #e7e8e1;
+}
+
+.help-container .help-holder {
+    border-bottom: 1px solid #e7e8e1;
+    padding: 10px;
+}
+
+.help-container .help-holder .user_data {
+    color: #1A6D29;
+    font-style: italic;
+}
+
+.help-container .help-holder p {
+    line-height: 22px;
+}
+
+.help-container .help-holder ol {
+    margin: 18px;
+}

@@ -1,4 +1,6 @@
 git+https://github.com/mitsuhiko/flask.git
 requests
+Flask-SQLAlchemy
+SQLAlchemy
 
 # celery[redis]

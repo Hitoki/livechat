@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block header %}
+<div class="metanav left">
+    <a href="{{ url_for('index') }}">Home</a>
+</div>
+{% endblock %}
+{% block body %}
+    <div class="auth-container">
+        <form action="{{ url_for('login') }}" method="post">
+            <div class="form-line">
+                <div class="left">
+                    <label for="username">Username</label>
+                    <input id="username" type="text" class="{% if error.username %}error-input{% endif %}" name="username" value="{% if not error.username %}{{ request.form.username }}{% endif %}" required>
+                    {% if error.username %}<span class="error">{{ error.username }}</span>{% endif %}
+                </div>
+                <div class="right">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" class="{% if error.password %}error-input{% endif %}" name="password" required>
+                    {% if error.password %}<span class="error">{{ error.password }}</span>{% endif %}
+                </div>
+            </div>
+
+            <div class="form-line">
+                <div class="left">
+                    <label for="google_track_id">Google Universal Analytics Tracking ID </label>
+                    <input id="google_track_id" type="text" name="google_track_id" value="{{ request.form.google_track_id }}" placeholder="UI-XXXXXXXX-X" required>
+                </div>
+                <div class="right">
+                    <a href="https://support.google.com/analytics/answer/1032385?hl=en" target="_blank">How to find your tracking ID?</a>
+                </div>
+            </div>
+
+            <div class="form-line">
+                <div class="left">
+                    <label for="livechat_login">LiveChat Username </label>
+                    <input id="livechat_login" type="text" name="livechat_login" value="{{ request.form.livechat_login }}" required>
+                </div>
+                <div class="right">
+                    <label for="livechat_api_key">LiveChat API Key </label>
+                    <input id="livechat_api_key" type="text" name="livechat_api_key" value="{{ request.form.livechat_api_key }}" required>
+                </div>
+                <div class="full left">
+                    <a href="https://my.livechatinc.com/agents/api-key/" target="_blank">Link to the developer's LiveChat interface.</a>
+                    <span>(You must have owner rights to see the Username (Login) and Your API key)</span>
+                </div>
+            </div>
+            <input type=submit value="Login">
+        </form>
+    </div>
+{% endblock %}
