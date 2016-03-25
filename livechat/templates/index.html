@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 
 {% block header %}
-{#<div class="metanav left">#}
-{#    {% if current_user.is_authenticated %}#}
-{#        <a href="{{ url_for('help_install') }}">Need Help?</a>#}
-{#    {% endif %}#}
-{#</div>#}
-{#<div class="metanav right">#}
-{#    {% if current_user.is_authenticated %}#}
-{#        <span>Hi {{ current_user.username }}!</span>#}
-{#        <a href="{{ url_for('logout') }}">Log out</a>#}
-{#    {% else %}#}
-{#        <a href="{{ url_for('login') }}">Log in</a>#}
-{#    {% endif %}#}
-{#</div>#}
+<div class="metanav left">
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('help_install') }}">Need Help?</a>
+    {% endif %}
+</div>
+<div class="metanav right">
+    {% if current_user.is_authenticated %}
+        <span>Hi {{ current_user.username }}!</span>
+        <a href="{{ url_for('logout') }}">Log out</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Log in</a>
+    {% endif %}
+</div>
 {% endblock %}
 
