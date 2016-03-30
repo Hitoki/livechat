@@ -42,7 +42,21 @@
                         </ol>
                     <img src="{{ url_for('static', filename='images/help-image-1.jpeg') }}" width="100%">
                 </li>
+                <li>
+                    <p>Add Script code on every page of your website before <span class="user_data">&lt;/body&gt;</span> tag, where you want to display a chat.</p>
+                    <span class="user_data code">&lt;script type="text/javascript"&gt;<br>
+                    <span>&nbsp;&nbsp;window.__lc = window.__lc || {};<br></span>
+                    <span>&nbsp;&nbsp;window.__lc.license = &lt;YOUR LICENSE&gt;<br></span>
+                    <span>&nbsp;&nbsp;(function() {<br></span>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;<br></span>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';<br></span>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);<br></span>
+                    <span>&nbsp;&nbsp})();<br></span>
+                    <span>&lt;/script&gt;<br></span></span>
+                    <a href="https://my.livechatinc.com/settings/code" target="_blank">How to find your script code with license?</a>
+                </li>
             </ol>
         </div>
+
     </div>
 {% endblock %}

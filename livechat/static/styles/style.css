@@ -169,6 +169,12 @@ header .metanav span {
     font-style: italic;
 }
 
+.help-container .help-holder .code {
+    display: block;
+    background: #FFF6C3;
+    margin: 30px;
+}
+
 .help-container .help-holder p {
     line-height: 22px;
 }
