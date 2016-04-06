@@ -66,18 +66,10 @@ def livechat_ticket(user_hash):
     user = User.query.filter_by(hash=user_hash).first_or_404()
 
     if request.get_json():
-        # For develop task
-        google_analytics_task(
-            request.get_json(), request.get_json()['chat']['id'], user)
-        # Celery task
-        # google_analytics_task.apply_async(
-        #     args=(request.get_json(), request.get_json()['chat']['id'], user),
-        #     countdown=6)
-        return ""
-    else:
         google_analytics_task.apply_async(
-            args=({"chat": {"id": "O5E7OPDCQW"}}, "O5E7OPDCQW", user),
+            args=(request.get_json(), request.get_json()['chat']['id'], user.serialize),
             countdown=6)
+        return ""
     ctx = {
         'google_track_id': user.google_track_id
     }

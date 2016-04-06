@@ -48,6 +48,12 @@ class User(db.Model):
         self.livechat_api_key = data.get('livechat_api_key')
         db.session.commit()
 
+    def serialize(self):
+        return {
+            "google_track_id": self.google_track_id,
+            "livechat_login": self.livechat_login,
+            "livechat_api_key": self.livechat_api_key
+        }
 
 @login_manager.user_loader
 def load_user(user_id):

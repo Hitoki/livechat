@@ -13,7 +13,6 @@ class Config(object):
 class ProductionConfig(Config):
     DEBUG = False
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = 'mysql://user@localhost/foo'
 
 
 class DevelopmentConfig(Config):
