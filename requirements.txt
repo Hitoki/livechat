@@ -6,6 +6,8 @@ SQLAlchemy
 
 requests
 
+raven
+
 celery[redis]
 redis
 gunicorn
