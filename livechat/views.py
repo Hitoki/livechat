@@ -64,10 +64,7 @@ def livechat_ticket(user_hash):
     :return: GET "render_template('chat_page.html', **ctx)"
     """
     user = User.query.filter_by(hash=user_hash).first_or_404()
-    # request.get_json(), request.get_json()['chat']['id'], user)
-    # google_analytics_task.apply_async(
-    #     args=({'chat': {'id': 'O5D7OOZH3Y'}}, 'O5D7OOZH3Y', user),
-    #     countdown=6)
+
     if request.get_json():
         # For develop task
         google_analytics_task(
@@ -77,6 +74,10 @@ def livechat_ticket(user_hash):
         #     args=(request.get_json(), request.get_json()['chat']['id'], user),
         #     countdown=6)
         return ""
+    else:
+        google_analytics_task.apply_async(
+            args=({"chat": {"id": "O5E7OPDCQW"}}, "O5E7OPDCQW", user),
+            countdown=6)
     ctx = {
         'google_track_id': user.google_track_id
     }

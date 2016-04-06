@@ -6,7 +6,7 @@ SQLAlchemy
 
 requests
 
-raven
+raven[flask]
 
 celery[redis]
 redis
