@@ -2,18 +2,27 @@ import requests
 import urllib.parse
 import http.client
 
-# from celery import Celery
-#
-# from livechat import app
-#
-# celery = Celery(app.name)
-#
-# celery.conf.update(app.config)
+from celery import Celery
+
+from livechat import app
+
+celery = Celery(app.name)
+
+
+app.config.update(
+    BROKER_URL='redis://localhost:6379/0',
+    CELERY_RESULT_BACKEND='redis://localhost:6379/0',
+    CELERY_ACCEPT_CONTENT=['json'],
+    CELERY_TASK_SERIALIZER='json',
+    CELERY_RESULT_SERIALIZER='json'
+)
+
+celery.conf.update(app.config)
 
 __all__ = ['google_analytics_task']
 
 
-# @celery.task()
+@celery.task()
 def google_analytics_task(data, ga, user):
     """ Celery task, send Google statistics
 
