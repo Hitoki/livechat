@@ -2,16 +2,18 @@ import requests
 import urllib.parse
 import http.client
 
-# from celery import Celery
+from celery import Celery
 
-# celery = Celery(app.name)
+from livechat import app
 
-# celery.conf.update(app.config)
+celery = Celery(app.name)
+
+celery.conf.update(app.config)
 
 __all__ = ['google_analytics_task']
 
 
-# @celery.task()
+@celery.task()
 def google_analytics_task(data, ga, user):
     """ Celery task, send Google statistics
 

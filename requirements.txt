@@ -6,4 +6,6 @@ SQLAlchemy
 
 requests
 
-# celery[redis]
+celery[redis]
+redis
+gunicorn

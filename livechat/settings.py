@@ -20,5 +20,5 @@ class DevelopmentConfig(Config):
     DEBUG = True
     TESTING = False
     GOOGLE_TRACK_ID = 'UA-75377135-1'
-    LIVECHAT_LOGIN = 'kidomakai@gmail.com'
-    LIVECHAT_API_KEY = 'd68ed9aac8511fedb315199228bfb03c'
+    LIVECHAT_LOGIN = 'vitaliy.romanuik@anvil8.com'
+    LIVECHAT_API_KEY = '4655f8e27c49c371d585bc857ecf5ebc'
