@@ -2,12 +2,12 @@
 
 cd //code
 
-redis-server --daemonize yes
+#redis-server --daemonize yes
 
-#python run.py
+python run.py
 
-gunicorn livechat:app --config gunicorn/config --daemon
-
-celery -A livechat.tasks.celery worker --loglevel=info
+#gunicorn livechat:app --config gunicorn/config --daemon
+#
+#celery -A livechat.tasks.celery worker --loglevel=info
 
 /bin/bash
