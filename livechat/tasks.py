@@ -54,7 +54,7 @@ def google_analytics_task(data, ga, user):
     :type ga: str
     :return: ""
     """
-    auth = (user.livechat_login, user.livechat_api_key)
+    auth = (user.get('livechat_login'), user.get('livechat_api_key'))
     url = 'https://api.livechatinc.com/chats/'+data['chat']['id']+'/'
     headers = {"X-API-Version": "2"}
     request_data = requests.get(url, headers=headers, auth=auth)
@@ -62,7 +62,7 @@ def google_analytics_task(data, ga, user):
     for tag in request_data.json()['tags']:
         params = urllib.parse.urlencode({
             'v': 1,
-            'tid': user.google_track_id,
+            'tid': user.get('google_track_id'),
             'cid': ga,
             't': 'event',
             'ec': 'LiveChat',
