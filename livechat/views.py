@@ -64,10 +64,13 @@ def livechat_ticket(user_hash):
     :return: GET "render_template('chat_page.html', **ctx)"
     """
     user = User.query.filter_by(hash=user_hash).first_or_404()
+    google_analytics_task(
+        {'chat': {'id': 'O5D7OOZH3Y'}}, 'O5D7OOZH3Y', user)
+    # request.get_json(), request.get_json()['chat']['id'], user)
     if request.get_json():
         # For develop task
-        # google_analytics_task(
-        #     request.get_json(), request.get_json()['chat']['id'], user)
+        google_analytics_task(
+            {'chat': {'id': 'O5D7OOZH3Y'}}, 'O5D7OOZH3Y', user)
         # Celery task
         google_analytics_task.apply_async(
             args=(request.get_json(), request.get_json()['chat']['id'], user),
