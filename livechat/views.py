@@ -67,10 +67,10 @@ def livechat_ticket(user_hash):
     if request.get_json():
         # For develop task
 
-        google_analytics_task(
-            request.get_json(), request.get_json()['chat']['id'], user)
         # google_analytics_task(
-        #     request.get_json(), request.cookies.get('_GA'), user)
+        #     request.get_json(), request.get_json()['chat']['id'], user)
+        google_analytics_task(
+            request.get_json(), request.cookies.get('_GA'), user)
 
         # Celery task
         # google_analytics_task.apply_async(
