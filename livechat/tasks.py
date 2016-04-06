@@ -26,17 +26,17 @@ def google_analytics_task(data, ga, user):
     headers = {"X-API-Version": "2"}
     request_data = requests.get(url, headers=headers, auth=auth)
 
-    for tag in request_data.json()['tags']:
-        params = urllib.parse.urlencode({
-            'v': 1,
-            'tid': user.google_track_id,
-            'cid': ga,
-            't': 'event',
-            'ec': 'LiveChat',
-            'ea': tag,
-            'el': data['chat']['id']
-        })
-        connection = http.client.HTTPConnection(
-            'www.google-analytics.com')
-        connection.request('POST', '/collect', params)
+    # for tag in request_data.json()['tags']:
+    #     params = urllib.parse.urlencode({
+    #         'v': 1,
+    #         'tid': user.google_track_id,
+    #         'cid': ga,
+    #         't': 'event',
+    #         'ec': 'LiveChat',
+    #         'ea': tag,
+    #         'el': data['chat']['id']
+    #     })
+    #     connection = http.client.HTTPConnection(
+    #         'www.google-analytics.com')
+    #     connection.request('POST', '/collect', params)
     return ""
