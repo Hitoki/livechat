@@ -27,6 +27,9 @@
                 <li>
                     <p>Set up a Web Site URL: <span class="user_data">{{ request.host_url }}</span> and select the protocol standard {% if request.is_secure %}<span class="user_data">https://</span>{% else %}<span class="user_data">http://</span>{% endif %} . <a href="https://support.google.com/analytics/answer/1042508?hl=en" target="_blank">How to set up a property?</a></p>
                 </li>
+                <li>
+                    <p>Add or check if there is (In the Google Analytics Script Code) a line, at the bottom of the code:  <span class="user_data">ga(function(tracker) {var clientId = tracker.get('clientId');});</span></p>
+                </li>
             </ol>
         </div>
         <div class="help-holder">
