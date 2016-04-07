@@ -111,11 +111,46 @@ form .form-line div input {
     width: calc(100% - 22px);
 }
 
+form .form-line div select {
+    width: calc(100% - 10px);
+    height: 30px;
+    font-size: 16px;
+}
+
 .flash {
     background: #1790cf;
     padding: 10px;
     color: #FFFFFF;
     margin-bottom: 5px;
+}
+
+.button {
+    display: inline-block;
+    background: #000000;
+    border: 1px solid #000000;
+    color: #FFFFFF;
+    padding: 5px;
+    min-width: 120px;
+    box-shadow: 0 0 5px rgba(0,0,0,.2);
+}
+
+.button:visited {
+    color: #FFFFFF;
+}
+
+.button:hover {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.button.delete {
+    background: #ec5b33;
+    border-color: #ec4b1a;
+}
+
+.button.edit {
+    background: #158013;
+    border-color: #018000;
 }
 
 /* --- Header -------------------------------------------------------------- */
@@ -135,11 +170,64 @@ header .metanav a {
     padding: 10px 20px;
 }
 
+header .metanav a:hover {
+    color: #efa843;
+}
+
 header .metanav span {
     color: #FFFFFF;
 }
-
 /* --- Body ---------------------------------------------------------------- */
+
+/* --- Index-Container ------------------------------------------------------ */
+
+.index-container {
+    margin-top: 62px;
+}
+
+.index-container .website-holder {
+    width: calc(25% - 42px);
+    float: left;
+    height: 240px;
+    position: relative;
+    background: #ebebeb;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #000000;
+}
+
+.index-container .website-holder ul li {
+    list-style: none;
+    margin-bottom: 6px;
+    word-break: break-all;
+}
+
+.index-container .website-holder .line {
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
+}
+
+.index-container .website-holder .add-button {
+    color: #397fe9;
+    font-size: 236px;
+}
+
+.index-container .website-holder .website-link {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+
+.index-container .website-holder .website-link:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.index-container .website-holder .website-link:hover .add-button {
+    color: #efa843;
+}
 
 /* --- Auth-Container ------------------------------------------------------ */
 
@@ -149,6 +237,7 @@ header .metanav span {
     margin: 40px auto 0;
     background: #e7e8e1;
 }
+
 
 /* --- Help-Container ------------------------------------------------------ */
 
@@ -182,3 +271,4 @@ header .metanav span {
 .help-container .help-holder ol {
     margin: 18px;
 }
+

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block header %}
+<div class="metanav left">
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('help_install') }}">Need Help?</a>
+</div>
+<div class="metanav right">
+    <span>Hi {{ current_user.username }}!</span>
+    <a href="{{ url_for('update_profile') }}">Profile</a>
+    <a href="{{ url_for('logout') }}">Log out</a>
+</div>
+{% endblock %}
+
+{% block body %}
+    <div class="auth-container">
+        <form action="{{ url_for('create_website') }}" method="post">
+            <div class="form-line">
+                <div class="full left">
+                    <label for="title">Unique Website Identification name </label>
+                    <input id="title" type="text" name="title" value="{{ request.form.google_track_id }}" required>
+                </div>
+            </div>
+            <div class="form-line">
+                <div class="left">
+                    <label for="google_track_id">Google Universal Analytics Tracking ID </label>
+                    <input id="google_track_id" type="text" name="google_track_id" value="{{ request.form.google_track_id }}" placeholder="UI-XXXXXXXX-X" required>
+                </div>
+                <div class="right">
+                    <a href="https://support.google.com/analytics/answer/1032385?hl=en" target="_blank">How to find your tracking ID?</a>
+                </div>
+            </div>
+
+            <div class="form-line">
+                <div class="left">
+                    <label for="tags">LiveChat list of tracked tags </label>
+                    <input id="tags" type="text" name="tags" value="{{ request.form.tags }}" placeholder="Tag1, Tag2, Tag3 ..." required>
+                </div>
+                <div class="right">
+                    <a href="https://my.livechatinc.com/settings/tags" target="_blank">Add or modify existing tags.</a>
+                    <p>List tags separated by commas, ignoring case, which will be monitored and sent to Google analytics.</p>
+                </div>
+            </div>
+
+            <div class="form-line">
+                <div class="left">
+                    <label for="group">LiveChat Group </label>
+                    <select name="group" id="group" required>
+                        <option disabled selected>Select a group</option>
+                        {% for group in groups %}
+                            <option value="{{ group.id }}">{{ group.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="right">
+                    <a href="https://my.livechatinc.com/settings/groups-routing" target="_blank">Add new URL rules.</a>
+                    <a href="https://my.livechatinc.com/agents/groups/" target="_blank">Edit or create group.</a>
+                </div>
+            </div>
+
+            <input type=submit value="Create">
+        </form>
+    </div>
+{% endblock %}

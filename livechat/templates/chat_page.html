@@ -1,4 +1,11 @@
 {% extends "base.html" %}
+
+{% block header %}
+<div class="metanav left">
+    <a href="{{ url_for('index') }}">Home</a>
+</div>
+{% endblock %}
+
 {% block livechat_script %}
 <!-- Start of LiveChat (www.livechatinc.com) code -->
 <script type="text/javascript">

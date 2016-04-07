@@ -8,8 +8,8 @@
     <span>Hi {{ current_user.username }}!</span>
     <a href="{{ url_for('logout') }}">Log out</a>
 </div>
-
 {% endblock %}
+
 {% block body %}
     <div class="help-container">
         <div class="help-holder">
@@ -22,7 +22,7 @@
             <p>if you have problems with Google Universal Analytics: does not come any statistics or incorrect statistics, some script integration error.</p>
             <ol>
                 <li>
-                    <p>Check you Google Universal Analytics Tracking ID: <span class="user_data">{{ current_user.google_track_id }}</span>. <a href="https://support.google.com/analytics/answer/1032385?hl=en" target="_blank">How to find your tracking ID?</a></p>
+                    <p>Check you Google Universal Analytics Tracking ID: <span class="user_data">UI-XXXXXX-X</span>. <a href="https://support.google.com/analytics/answer/1032385?hl=en" target="_blank">How to find your tracking ID?</a></p>
                 </li>
                 <li>
                     <p>Set up a Web Site URL: <span class="user_data">{{ request.host_url }}</span> and select the protocol standard {% if request.is_secure %}<span class="user_data">https://</span>{% else %}<span class="user_data">http://</span>{% endif %} . <a href="https://support.google.com/analytics/answer/1042508?hl=en" target="_blank">How to set up a property?</a></p>

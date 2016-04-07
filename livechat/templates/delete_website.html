@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block header %}
+<div class="metanav left">
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('help_install') }}">Need Help?</a>
+</div>
+<div class="metanav right">
+    <span>Hi {{ current_user.username }}!</span>
+    <a href="{{ url_for('update_profile') }}">Profile</a>
+    <a href="{{ url_for('logout') }}">Log out</a>
+</div>
+{% endblock %}
+
+{% block body %}
+    <div class="auth-container">
+        <form action="{{ url_for('delete_website', web_id=website.id) }}" method="post">
+            <div class="form-line">
+                <div class="full left">
+                    <p>Do you want to delete {{ website.title }} website?</p>
+                </div>
+            </div>
+            <input type=submit value="Delete">
+        </form>
+    </div>
+{% endblock %}
