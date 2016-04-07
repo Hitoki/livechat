@@ -67,7 +67,7 @@ def google_analytics_task(data, user):
         if tag in website.tags.replace(' ', '').split(','):
             params = urllib.parse.urlencode({
                 'v': 1,
-                'tid': website.get('google_track_id'),
+                'tid': website.google_track_id,
                 'cid': data['chat']['id'],
                 't': 'event',
                 'ec': 'LiveChat',
