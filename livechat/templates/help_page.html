@@ -16,7 +16,7 @@
             <p>Your personal chat identifier: <span class="user_data">{{ current_user.hash }}</span> - please keep it.</p>
         </div>
         <div class="help-holder">
-            <p>Your personal link to the chat: <span class="user_data"><a href="{{ request.host_url }}{{ current_user.hash }}/" target="_blank">{{ request.host_url }}{{ current_user.hash }}/</a></span></p>
+            <p>Your personal link to the chat: <span class="user_data"><a href="{{ request.host_url }}{{ current_user.hash }}/" target="_blank">https://{{ request.host }}/{{ current_user.hash }}/</a></span></p>
         </div>
         <div class="help-holder">
             <p>if you have problems with Google Universal Analytics: does not come any statistics or incorrect statistics, some script integration error.</p>
@@ -25,7 +25,11 @@
                     <p>Check you Google Universal Analytics Tracking ID: <span class="user_data">UI-XXXXXX-X</span>. <a href="https://support.google.com/analytics/answer/1032385?hl=en" target="_blank">How to find your tracking ID?</a></p>
                 </li>
                 <li>
-                    <p>Set up a Web Site URL: <span class="user_data">{{ request.host_url }}</span> and select the protocol standard {% if request.is_secure %}<span class="user_data">https://</span>{% else %}<span class="user_data">http://</span>{% endif %} . <a href="https://support.google.com/analytics/answer/1042508?hl=en" target="_blank">How to set up a property?</a></p>
+                    <p>Set up a Web Site URL: <span class="user_data">https://{{ request.host }}/</span> and select the protocol standard
+                        https://
+{#                        {% if request.is_secure %}<span class="user_data">https://</span>{% else %}<span class="user_data">http://</span>{% endif %}#}
+                        .
+                        <a href="https://support.google.com/analytics/answer/1042508?hl=en" target="_blank">How to set up a property?</a></p>
                 </li>
                 <li>
                     <p>Add or check if there is (In the Google Analytics Script Code) a line, at the bottom of the code:  <span class="user_data">ga(function(tracker) {var clientId = tracker.get('clientId');});</span></p>
@@ -41,7 +45,7 @@
                         <ol>
                             <li>Event: <span class="user_data">chat ends(chat_ended)</span></li>
                             <li>Data type: <span class="user_data">chat</span></li>
-                            <li>Target URL: <span class="user_data">{{ request.host_url }}{{ current_user.hash }}/</span></li>
+                            <li>Target URL: <span class="user_data">https://{{ request.host }}/{{ current_user.hash }}/</span></li>
                         </ol>
                     <img src="{{ url_for('static', filename='images/help-image-1.jpeg') }}" width="100%">
                 </li>

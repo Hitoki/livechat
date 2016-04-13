@@ -96,7 +96,7 @@ def livechat_ticket(user_hash):
     # args=({"chat": {"id": "O5B9JQE8ZU"}}, user.serialize()),
     # countdown=6)
     if request.get_json():
-        app.logger.error('Webhook:'.format(request.get_json()))
+        app.logger.error('Webhook: {}'.format(request.get_json()))
         google_analytics_task.apply_async(args=(request.get_json(), user.serialize()), countdown=6)
         return ""
     if user.websites.first():
@@ -116,8 +116,9 @@ def help_install():
     """
     Help page for install LiveChat
 
-    :return: redirect(url_for('help_install'))
+    :return: render_template('help_page.html')
     """
+    print(dir(request))
     return render_template('help_page.html')
 
 
