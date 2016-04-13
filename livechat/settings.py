@@ -21,3 +21,5 @@ class DevelopmentConfig(Config):
     GOOGLE_TRACK_ID = 'UA-75377135-1'
     LIVECHAT_LOGIN = 'vitaliy.romanuik@anvil8.com'
     LIVECHAT_API_KEY = '4655f8e27c49c371d585bc857ecf5ebc'
+    TEST_L = 'andy@yomdel.com'
+    TEST_K = '099b9ae6e46c6f74e964dd8dc1e067a3'

@@ -60,8 +60,10 @@ def google_analytics_task(data, user):
         websites.filter_by(group=request_data.json()['group'][0])\
         .first_or_404()
 
+    tags = [i.lower() for i in website.tags.split(', ')]
+
     for tag in request_data.json()['tags']:
-        if tag in website.tags.replace(' ', '').split(','):
+        if tag.lower() in tags:
             params = urllib.parse.urlencode({
                 'v': 1,
                 'tid': website.google_track_id,
