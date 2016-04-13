@@ -5,8 +5,6 @@ import http.client
 from celery import Celery
 
 from livechat import app
-
-# celery = Celery(app.name)
 from livechat.models import User
 
 
@@ -18,7 +16,6 @@ app.config.update(
     CELERY_RESULT_SERIALIZER='json'
 )
 
-# celery.conf.update(app.config)
 
 from raven import Client
 from raven.contrib.celery import register_signal, register_logger_signal

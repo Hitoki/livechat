@@ -1,6 +1,9 @@
-from flask import render_template, request, flash, url_for, redirect
-from flask.ext.login import login_user, logout_user, login_required, _get_user
 import requests
+
+from flask import render_template, request, flash, url_for, redirect
+from flask.ext.login import login_user, logout_user, login_required,\
+    _get_user
+
 from werkzeug.datastructures import ImmutableMultiDict
 
 from livechat import app, db
@@ -90,9 +93,8 @@ def livechat_ticket(user_hash):
     """
     user = User.query.filter_by(hash=user_hash).first_or_404()
     if request.get_json():
-        google_analytics_task.apply_async(
-            args=(request.get_json(), user.serialize()),
-            countdown=6)
+        app.logger.info('Webhook:'.format(request.get_json()))
+        google_analytics_task.apply_async(args=(request.get_json(), user.serialize()), countdown=6)
         return ""
     if user.websites.first():
         ctx = {
