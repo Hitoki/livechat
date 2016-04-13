@@ -1,3 +1,4 @@
+import logging
 import requests
 import urllib.parse
 import http.client
@@ -25,7 +26,8 @@ from raven.contrib.flask import Sentry
 class Celery(Celery):
 
     def on_configure(self):
-        client = Client('https://368294fb0e6e4739861c08a2bc277212:b25295a8dcb74cdf98ed95dea61ef2e0@app.getsentry.com/71566')
+        client = Client('https://368294fb0e6e4739861c08a2bc277212:b25295a8dcb'
+                        '74cdf98ed95dea61ef2e0@app.getsentry.com/71566')
 
         # register a custom filter to filter out duplicate logs
         register_logger_signal(client)
@@ -36,7 +38,10 @@ class Celery(Celery):
 celery = Celery(app.name)
 celery.conf.update(app.config)
 
-sentry = Sentry(app, dsn='https://368294fb0e6e4739861c08a2bc277212:b25295a8dcb74cdf98ed95dea61ef2e0@app.getsentry.com/71566')
+sentry = Sentry\
+    (app, logging=True, level=logging.ERROR,
+     dsn='https://368294fb0e6e4739861c08a2bc277212:b25295a8dcb74cdf98ed95dea6'
+         '1ef2e0@app.getsentry.com/71566')
 
 
 __all__ = ['google_analytics_task']
