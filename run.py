@@ -1,6 +1,3 @@
-import logging
-from logging.handlers import RotatingFileHandler
-
 from livechat import app, db
 from livechat.models import User
 
@@ -17,11 +14,6 @@ if not User.query.filter_by(username='test').first():
     db.session.add(test)
     db.session.commit()
 
-
-handler = RotatingFileHandler('webhook.log', maxBytes=10000, backupCount=1)
-handler.setLevel(logging.INFO)
-handler.setLevel(logging.ERROR)
-app.logger.addHandler(handler)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
