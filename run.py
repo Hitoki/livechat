@@ -21,7 +21,6 @@ if not User.query.filter_by(username='test').first():
 handler = RotatingFileHandler('webhook.log', maxBytes=10000, backupCount=1)
 handler.setLevel(logging.INFO)
 app.logger.addHandler(handler)
-<<<<<<< HEAD
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
