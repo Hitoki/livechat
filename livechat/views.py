@@ -92,9 +92,9 @@ def livechat_ticket(user_hash):
     :return: GET "render_template('chat_page.html', **ctx)"
     """
     user = User.query.filter_by(hash=user_hash).first_or_404()
-    # google_analytics_task.apply_async(
-    # args=({"chat": {"id": "O5B9JQE8ZU"}}, user.serialize()),
-    # countdown=6)
+    google_analytics_task.apply_async(
+    args=({"chat": {"id": "O50M8WB16Y"}}, user.serialize()),
+    countdown=6)
     app.logger.error('User Enter:')
     if request.get_json():
         app.logger.error('Webhook: {}'.format(request.get_json()))
