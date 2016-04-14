@@ -11,7 +11,7 @@ class Config(object):
 
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = "postgresql://livechat"
+    SQLALCHEMY_DATABASE_URI = "postgresql:///livechat"
     DEBUG = False
     TESTING = False
 
