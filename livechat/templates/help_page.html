@@ -28,7 +28,10 @@
                     <p>Check you Google Universal Analytics Tracking ID: <span class="user_data">UI-XXXXXX-X</span>. <a href="https://support.google.com/analytics/answer/1032385?hl=en" target="_blank">How to find your tracking ID?</a></p>
                 </li>
                 <li>
-                    <p>Set up a Web Site URL: <span class="user_data">https://{{ request.host }}/</span> and select the protocol standard
+                    <p>Set up a Web Site URL:
+                        <span class="user_data">{{ current_user.host_url }}</span>
+                        <span class="user_data">https://</span>
+                        and select the protocol standard
 {#                        <span class="user_data">https://</span>.#}
                         {% if request.is_secure %}<span class="user_data">https://</span>{% else %}<span class="user_data">http://</span>{% endif %}.
                         <a href="https://support.google.com/analytics/answer/1042508?hl=en" target="_blank">How to set up a property?</a></p>
