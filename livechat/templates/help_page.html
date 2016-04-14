@@ -30,7 +30,7 @@
                 <li>
                     <p>Set up a Web Site URL:
                         <span class="user_data">{{ current_user.host_url }}</span>
-                        <span class="user_data">https://</span>
+{#                        <span class="user_data">https://{{ request.host }}</span>#}
                         and select the protocol standard
 {#                        <span class="user_data">https://</span>.#}
                         {% if request.is_secure %}<span class="user_data">https://</span>{% else %}<span class="user_data">http://</span>{% endif %}.
