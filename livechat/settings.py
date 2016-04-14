@@ -4,8 +4,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
-    # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(
-    #     basedir, 'livechat.db')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(
+        basedir, 'livechat.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SECRET_KEY = 'pofk84z0bl9g14k0f'
 
@@ -17,7 +17,7 @@ class ProductionConfig(Config):
 
 
 class DevelopmentConfig(Config):
-    SQLALCHEMY_DATABASE_URI = "postgresql:///livechat"
+    # SQLALCHEMY_DATABASE_URI = "postgresql:///livechat"
     DEBUG = True
     TESTING = False
     GOOGLE_TRACK_ID = 'UA-75377135-1'

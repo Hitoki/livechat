@@ -95,6 +95,7 @@ def livechat_ticket(user_hash):
     # google_analytics_task.apply_async(
     # args=({"chat": {"id": "O5B9JQE8ZU"}}, user.serialize()),
     # countdown=6)
+    app.logger.error('User Enter:')
     if request.get_json():
         app.logger.error('Webhook: {}'.format(request.get_json()))
         google_analytics_task.apply_async(args=(request.get_json(), user.serialize()), countdown=6)
