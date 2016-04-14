@@ -2,7 +2,9 @@ git+https://github.com/mitsuhiko/flask.git
 flask-login
 
 Flask-SQLAlchemy
+Flask-Migrate
 SQLAlchemy
+psycopg2
 
 requests
 
@@ -10,4 +12,8 @@ raven[flask]
 
 celery[redis]
 redis
+
+#For Development Docker Installing
 gunicorn
+
+#sudo apt-get install libpq-dev python-dev
