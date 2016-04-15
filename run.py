@@ -4,7 +4,7 @@ from livechat.models import User
 
 db.create_all()
 
-for user in app.congig.get('USERS'):
+for user in app.config.get('USERS'):
     if not User.query.filter_by(username=user[0]).first():
         new_user = User(username=user[0], password=user[1])
         db.session.add(new_user)
