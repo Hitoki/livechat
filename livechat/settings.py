@@ -8,6 +8,13 @@ class Config(object):
     #     basedir, 'livechat.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SECRET_KEY = 'pofk84z0bl9g14k0f'
+    USERS = (
+        ('admin', 'admin', ''),
+        ('test', 'test', ''),
+        ('andy', 'ZunA1hAsszMGzMytSMHX', 'andy@yomdel.com'),
+        ('andy.soloman', 'JDQtptkqYKe8Fj4888XK', 'andy.soloman@yomdel.com'),
+        ('maxcleavage', 'Em4o4AWZ905SOlebYU2y', 'maxcleavage@yomdel.com')
+    )
 
 
 class ProductionConfig(Config):
