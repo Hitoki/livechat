@@ -61,6 +61,7 @@ def google_analytics_task(data, user):
     url = 'https://api.livechatinc.com/chats/'+data['chat']['id']+'/'
     headers = {"X-API-Version": "2"}
     request_data = requests.get(url, headers=headers, auth=auth)
+    print(request_data.json())
     website = User.query.get(user.get('id')).\
         websites.filter_by(group=request_data.json()['group'][0])\
         .first_or_404()
